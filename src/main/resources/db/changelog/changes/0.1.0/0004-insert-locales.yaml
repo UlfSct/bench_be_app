@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0.1.0-0004-insert-user-locales
+      author: n3kit
+      changes:
+        - insert:
+            tableName: user_locales
+            columns:
+              - column: { name: code, value: "ru" }
+              - column: { name: name, value: "Русский" }
+              - column: { name: is_active, valueBoolean: true }
+        - insert:
+            tableName: user_locales
+            columns:
+              - column: { name: code, value: "en" }
+              - column: { name: name, value: "English" }
+              - column: { name: is_active, valueBoolean: true }
+      rollback:
+        - delete:
+            tableName: user_locales
+            where: code IN ('ru', 'en')

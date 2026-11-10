@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 001-create-users
+      id: 0.1.0-0001-create-users
       author: n3kit
       changes:
         - createTable:

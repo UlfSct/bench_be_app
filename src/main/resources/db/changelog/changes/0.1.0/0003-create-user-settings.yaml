@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0.1.0-0003-create-user-settings
+      author: n3kit
+      changes:
+        - createTable:
+            tableName: user_settings
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: uq_user_settings_user_id
+                    nullable: false
+              - column:
+                  name: locale_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: user_settings
+            constraintName: fk_user_settings_user
+            referencedColumnNames: id
+            referencedTableName: users
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseColumnNames: locale_id
+            baseTableName: user_settings
+            constraintName: fk_user_settings_locale
+            referencedColumnNames: id
+            referencedTableName: user_locales
+            onDelete: RESTRICT
+      rollback:
+        - dropTable:
+            tableName: user_settings
+            cascadeConstraints: true

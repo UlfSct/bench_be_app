@@ -79,6 +79,11 @@ public class User {
     @Getter
     private Instant updatedAt;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Getter
+    @Setter
+    private UserSettings settings;
+
     @PrePersist
     private void assignUid() {
         if (uid == null) {
