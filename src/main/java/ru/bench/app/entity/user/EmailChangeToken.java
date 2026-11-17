@@ -14,7 +14,11 @@ import java.util.UUID;
 @Entity
 @Table(
         name = "email_change_tokens",
-        uniqueConstraints = @UniqueConstraint(name = "uq_email_change_token_user_id", columnNames = "user_id")
+        uniqueConstraints = {
+                @UniqueConstraint(name = "uq_email_change_token_user_id", columnNames = "user_id"),
+                @UniqueConstraint(name = "uq_email_change_token_token", columnNames = "token")
+        }
+
 )
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
@@ -49,11 +53,6 @@ public class EmailChangeToken {
     @Column(name = "expires_at", nullable = false)
     @Getter
     private Instant expiresAt;
-
-    @Column(name = "used_at")
-    @Getter
-    @Setter
-    private Instant usedAt;
 
     private static final Duration TTL = Duration.ofHours(1);
 

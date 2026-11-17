@@ -7,3 +7,7 @@ databaseChangeLog:
       file: db/changelog/changes/0.1.0/0003-create-user-settings.yaml
   - include:
       file: db/changelog/changes/0.1.0/0004-insert-locales.yaml
+  - include:
+      file: db/changelog/changes/0.1.0/0005-create-email-change-tokens.yaml
+  - include:
+      file: db/changelog/changes/0.1.0/0006-create-email-verification-tokens.yaml
