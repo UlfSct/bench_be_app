@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0.1.0-0018-insert-admin-user
+      author: n3kit
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: uid
+                  valueComputed: gen_random_uuid()
+              - column:
+                  name: username
+                  value: admin
+              - column:
+                  name: password_hash
+                  value: $2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy
+              - column:
+                  name: email
+                  value: admin@bench.ru
+              - column:
+                  name: is_email_confirmed
+                  valueBoolean: true
+              - column:
+                  name: is_signed_user_agreement
+                  valueBoolean: true
+              - column:
+                  name: is_signed_privacy_policy
+                  valueBoolean: true
+              - column:
+                  name: is_active
+                  valueBoolean: true
+        - sql:
+            sql: >
+              INSERT INTO user_roles (user_id, role_id) SELECT u.id, r.id FROM
+              users u, roles r WHERE u.username = 'admin' AND r.code = 'ADMIN'
+      rollback:
+        - delete:
+            tableName: user_roles
+            where: user_id IN (SELECT id FROM users WHERE username = 'admin')
+        - delete:
+            tableName: users
+            where: username = 'admin'

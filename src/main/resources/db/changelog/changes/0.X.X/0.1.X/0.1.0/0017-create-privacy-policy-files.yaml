@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0.1.0-0017-create-privacy-policy-files
+      author: n3kit
+      changes:
+        - createTable:
+            tableName: privacy_policy_files
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: file_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uq_privacy_policy_files_file_id
+              - column:
+                  name: created_by
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: file_id
+            baseTableName: privacy_policy_files
+            constraintName: fk_privacy_policy_files_file
+            referencedColumnNames: id
+            referencedTableName: files
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseColumnNames: created_by
+            baseTableName: privacy_policy_files
+            constraintName: fk_privacy_policy_files_created_by
+            referencedColumnNames: id
+            referencedTableName: users
+            onDelete: RESTRICT
+      rollback:
+        - dropTable:
+            tableName: privacy_policy_files
+            cascadeConstraints: true

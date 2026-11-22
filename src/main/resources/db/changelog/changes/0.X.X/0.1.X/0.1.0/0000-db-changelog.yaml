@@ -33,3 +33,7 @@ databaseChangeLog:
       file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0016-create-user-agreement-files.yaml
   - include:
       file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0017-create-privacy-policy-files.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0018-insert-admin-user.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0019-create-user-restrictions.yaml

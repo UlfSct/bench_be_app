@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0.1.0-0019-create-user-restrictions
+      author: n3kit
+      changes:
+        - createTable:
+            tableName: user_restrictions
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reason
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamptz
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expires_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: user_restrictions
+            constraintName: fk_user_restrictions_user
+            referencedColumnNames: id
+            referencedTableName: users
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseColumnNames: created_by
+            baseTableName: user_restrictions
+            constraintName: fk_user_restrictions_created_by
+            referencedColumnNames: id
+            referencedTableName: users
+            onDelete: RESTRICT
+      rollback:
+        - dropTable:
+            tableName: user_restrictions
+            cascadeConstraints: true

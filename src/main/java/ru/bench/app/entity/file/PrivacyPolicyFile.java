@@ -29,7 +29,7 @@ public class PrivacyPolicyFile {
     private File file;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by")
+    @JoinColumn(name = "created_by", nullable = false)
     @Getter
     @Setter
     private User createdBy;

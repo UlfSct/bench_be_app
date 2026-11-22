@@ -22,6 +22,8 @@ public class UserPrincipal implements UserDetails {
     private final String password;
     private final boolean active;
     private final boolean emailConfirmed;
+    private final boolean signedUserAgreement;
+    private final boolean signedPrivacyPolicy;
     private final Set<String> roleCodes;
 
     public UserPrincipal(User user, Long sessionId) {
@@ -32,6 +34,8 @@ public class UserPrincipal implements UserDetails {
         this.password = user.getPasswordHash();
         this.active = user.isActive();
         this.emailConfirmed = user.isEmailConfirmed();
+        this.signedUserAgreement = user.isSignedUserAgreement();
+        this.signedPrivacyPolicy = user.isSignedPrivacyPolicy();
         this.roleCodes = user.getRoles().stream()
                 .map(ur -> ur.getRole().getCode())
                 .collect(Collectors.toSet());

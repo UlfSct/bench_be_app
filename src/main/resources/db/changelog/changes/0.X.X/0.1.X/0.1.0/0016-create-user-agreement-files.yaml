@@ -23,6 +23,8 @@ databaseChangeLog:
               - column:
                   name: created_by
                   type: bigint
+                  constraints:
+                    nullable: false
         - addForeignKeyConstraint:
             baseColumnNames: file_id
             baseTableName: user_agreement_files
@@ -36,7 +38,7 @@ databaseChangeLog:
             constraintName: fk_user_agreement_files_created_by
             referencedColumnNames: id
             referencedTableName: users
-            onDelete: SET NULL
+            onDelete: RESTRICT
       rollback:
         - dropTable:
             tableName: user_agreement_files
