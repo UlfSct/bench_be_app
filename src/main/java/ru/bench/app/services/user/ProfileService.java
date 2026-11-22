@@ -28,7 +28,6 @@ public class ProfileService {
                 user.getUid(),
                 user.getUsername(),
                 user.getEmail(),
-                user.getAvatarUrl(),
                 user.isEmailConfirmed(),
                 user.isSignedUserAgreement(),
                 user.isSignedPrivacyPolicy(),

@@ -25,3 +25,11 @@ databaseChangeLog:
       file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0012-create-user-sessions.yaml
   - include:
       file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0013-create-refresh-tokens.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0014-create-files.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0015-create-user-avatar-files.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0016-create-user-agreement-files.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0017-create-privacy-policy-files.yaml

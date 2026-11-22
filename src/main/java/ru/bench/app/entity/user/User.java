@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import ru.bench.app.entity.file.UserAvatarFile;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -54,11 +55,6 @@ public class User {
     @Setter
     private boolean isEmailConfirmed = false;
 
-    @Column(name = "avatar_url", length = 500)
-    @Getter
-    @Setter
-    private String avatarUrl;
-
     @Column(name = "is_active", nullable = false)
     @Getter
     @Setter
@@ -68,6 +64,11 @@ public class User {
     @CreationTimestamp
     @Getter
     private Instant createdAt;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Getter
+    @Setter
+    private UserAvatarFile avatarFile;
 
     @Column(name = "is_signed_user_agreement", nullable = false)
     @Getter

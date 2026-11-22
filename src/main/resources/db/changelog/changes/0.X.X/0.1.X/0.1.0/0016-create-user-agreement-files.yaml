@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0.1.0-0016-create-user-agreement-files
+      author: n3kit
+      changes:
+        - createTable:
+            tableName: user_agreement_files
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: file_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uq_user_agreement_files_file_id
+              - column:
+                  name: created_by
+                  type: bigint
+        - addForeignKeyConstraint:
+            baseColumnNames: file_id
+            baseTableName: user_agreement_files
+            constraintName: fk_user_agreement_files_file
+            referencedColumnNames: id
+            referencedTableName: files
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseColumnNames: created_by
+            baseTableName: user_agreement_files
+            constraintName: fk_user_agreement_files_created_by
+            referencedColumnNames: id
+            referencedTableName: users
+            onDelete: SET NULL
+      rollback:
+        - dropTable:
+            tableName: user_agreement_files
+            cascadeConstraints: true

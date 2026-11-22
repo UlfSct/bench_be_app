@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0.1.0-0015-create-user-avatar-files
+      author: n3kit
+      changes:
+        - createTable:
+            tableName: user_avatar_files
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uq_user_avatar_files_user_id
+              - column:
+                  name: file_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uq_user_avatar_files_file_id
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: user_avatar_files
+            constraintName: fk_user_avatar_files_user
+            referencedColumnNames: id
+            referencedTableName: users
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseColumnNames: file_id
+            baseTableName: user_avatar_files
+            constraintName: fk_user_avatar_files_file
+            referencedColumnNames: id
+            referencedTableName: files
+            onDelete: CASCADE
+      rollback:
+        - dropTable:
+            tableName: user_avatar_files
+            cascadeConstraints: true

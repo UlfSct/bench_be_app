@@ -8,7 +8,6 @@ public record ProfileResponse(
         UUID uid,
         String username,
         String email,
-        String avatarUrl,
         boolean isEmailConfirmed,
         boolean isSignedUserAgreement,
         boolean isSignedPrivacyPolicy,
