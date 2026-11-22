@@ -6,9 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -63,26 +64,41 @@ public class User {
     @Setter
     private boolean isActive = true;
 
-    @Column(name = "role", nullable = false, length = 20)
-    @Enumerated(EnumType.STRING)
-    @Getter
-    @Setter
-    private UserRole role = UserRole.USER;
-
     @Column(name = "created_at", nullable = false)
     @CreationTimestamp
     @Getter
     private Instant createdAt;
 
-    @Column(name = "updated_at", nullable = false)
-    @UpdateTimestamp
+    @Column(name = "is_signed_user_agreement", nullable = false)
     @Getter
-    private Instant updatedAt;
+    @Setter
+    private boolean isSignedUserAgreement = false;
+
+    @Column(name = "is_signed_privacy_policy", nullable = false)
+    @Getter
+    @Setter
+    private boolean isSignedPrivacyPolicy = false;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @Getter
     @Setter
     private UserSettings settings;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Getter
+    private List<EmailChangeToken> emailChangeTokens = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Getter
+    private List<EmailVerificationToken> emailVerificationTokens = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Getter
+    private List<UserRole> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Getter
+    private List<UserSession> sessions = new ArrayList<>();
 
     @PrePersist
     private void assignUid() {

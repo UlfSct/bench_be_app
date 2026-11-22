@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<p>Hello, <span th:text="${username}">username</span>!</p>
+<p>Please confirm your email by clicking the link below:</p>
+<p><a th:href="${link}" th:text="${link}">link</a></p>
+<p>The link is valid for 1 hour.</p>
+</body>
+</html>

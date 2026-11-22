@@ -15,8 +15,7 @@ import java.util.UUID;
 @Table(
     name = "email_verification_tokens",
     uniqueConstraints = {
-            @UniqueConstraint(name = "uq_email_verification_token_user_id", columnNames = "user_id"),
-            @UniqueConstraint(name = "uq_email_verification_token_token", columnNames = "token")
+        @UniqueConstraint(name = "uq_email_verification_token_token", columnNames = "token")
     }
 )
 @EqualsAndHashCode(of = "id")
@@ -29,7 +28,7 @@ public class EmailVerificationToken {
     @Getter
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @Getter
     @Setter
@@ -38,6 +37,21 @@ public class EmailVerificationToken {
     @Column(name = "token", nullable = false)
     @Getter
     private UUID token;
+
+    @Column(name = "email", nullable = false, length = 255)
+    @Getter
+    @Setter
+    private String email;
+
+    @Column(name = "is_used", nullable = false)
+    @Getter
+    @Setter
+    private boolean isUsed = false;
+
+    @Column(name = "used_at")
+    @Getter
+    @Setter
+    private Instant usedAt;
 
     @Column(name = "created_at", nullable = false)
     @CreationTimestamp
@@ -53,7 +67,6 @@ public class EmailVerificationToken {
     @PrePersist
     void assignDefaults() {
         if (token == null) token = UUID.randomUUID();
-        if (createdAt == null) createdAt = Instant.now();
-        if (expiresAt == null) expiresAt = createdAt.plus(TTL);
+        if (expiresAt == null) expiresAt = Instant.now().plus(TTL);
     }
 }

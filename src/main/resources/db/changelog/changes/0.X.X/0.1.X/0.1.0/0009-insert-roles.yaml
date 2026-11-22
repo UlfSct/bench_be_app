@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0.1.0-0009-insert-roles
+      author: n3kit
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: code
+                  value: "ADMIN"
+              - column:
+                  name: name
+                  value: "Администратор"
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: code
+                  value: "SUPPORT"
+              - column:
+                  name: name
+                  value: "Тех. поддержка"
+      rollback:
+        - delete:
+            tableName: roles
+            where: code IN ('ADMIN', 'SUPPORT')

@@ -27,10 +27,15 @@ public class UserSettings {
     @Setter
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "locale_id", nullable = false)
     @Getter
     @Setter
     private UserLocale locale;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id", nullable = false)
+    @Getter
+    @Setter
+    private Country country;
 }

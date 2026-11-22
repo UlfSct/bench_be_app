@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0.1.0-0005-create-user-roles
+      author: n3kit
+      changes:
+        - createTable:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: user_roles
+            columnNames: 'user_id, role_id'
+            constraintName: uq_user_roles_user_role
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: user_roles
+            constraintName: fk_user_roles_user
+            referencedColumnNames: id
+            referencedTableName: users
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseColumnNames: role_id
+            baseTableName: user_roles
+            constraintName: fk_user_roles_role
+            referencedColumnNames: id
+            referencedTableName: roles
+            onDelete: RESTRICT
+      rollback:
+        - dropTable:
+            tableName: user_roles
+            cascadeConstraints: true

@@ -1,5 +1,6 @@
 package ru.bench.app.dto.user.response;
 
-public record RegisterResponse (
-    String email
-){}
+public record RegisterResponse(
+        String username,
+        String email
+) {}

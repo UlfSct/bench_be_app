@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0001-create-users.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0002-create-user-locales.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0003-create-countries.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0004-create-roles.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0005-create-user-roles.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0006-create-user-settings.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0007-insert-locales.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0008-insert-countries.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0009-insert-roles.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0010-create-email-change-tokens.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0011-create-email-verification-tokens.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0012-create-user-sessions.yaml
+  - include:
+      file: db/changelog/changes/0.X.X/0.1.X/0.1.0/0013-create-refresh-tokens.yaml

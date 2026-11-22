@@ -13,12 +13,10 @@ import java.util.UUID;
 
 @Entity
 @Table(
-        name = "email_change_tokens",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "uq_email_change_token_user_id", columnNames = "user_id"),
-                @UniqueConstraint(name = "uq_email_change_token_token", columnNames = "token")
-        }
-
+    name = "email_change_tokens",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "uq_email_change_token_token", columnNames = "token")
+    }
 )
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
@@ -30,7 +28,7 @@ public class EmailChangeToken {
     @Getter
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @Getter
     @Setter
@@ -44,6 +42,16 @@ public class EmailChangeToken {
     @Getter
     @Setter
     private String newEmail;
+
+    @Column(name = "is_used", nullable = false)
+    @Getter
+    @Setter
+    private boolean isUsed = false;
+
+    @Column(name = "used_at")
+    @Getter
+    @Setter
+    private Instant usedAt;
 
     @Column(name = "created_at", nullable = false)
     @CreationTimestamp
@@ -59,7 +67,6 @@ public class EmailChangeToken {
     @PrePersist
     void assignDefaults() {
         if (token == null) token = UUID.randomUUID();
-        if (createdAt == null) createdAt = Instant.now();
-        if (expiresAt == null) expiresAt = createdAt.plus(TTL);
+        if (expiresAt == null) expiresAt = Instant.now().plus(TTL);
     }
 }

@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0.1.0-0004-create-roles
+      author: n3kit
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: code
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uq_roles_code
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+      rollback:
+        - dropTable:
+            tableName: roles
+            cascadeConstraints: true

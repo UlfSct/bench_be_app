@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0.1.0-0013-create-refresh-tokens
+      author: n3kit
+      changes:
+        - createTable:
+            tableName: refresh_tokens
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: session_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: token
+                  type: varchar(512)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uq_refresh_tokens_token
+              - column:
+                  name: expires_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_used
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: used_at
+                  type: timestamptz
+        - addForeignKeyConstraint:
+            baseColumnNames: session_id
+            baseTableName: refresh_tokens
+            constraintName: fk_refresh_tokens_session
+            referencedColumnNames: id
+            referencedTableName: user_sessions
+            onDelete: CASCADE
+      rollback:
+        - dropTable:
+            tableName: refresh_tokens
+            cascadeConstraints: true

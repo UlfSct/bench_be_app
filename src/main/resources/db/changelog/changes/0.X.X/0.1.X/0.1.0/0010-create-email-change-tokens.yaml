@@ -1,0 +1,62 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0.1.0-0010-create-email-change-tokens
+      author: n3kit
+      changes:
+        - createTable:
+            tableName: email_change_tokens
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: token
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uq_email_change_token_token
+              - column:
+                  name: new_email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_used
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: used_at
+                  type: timestamptz
+              - column:
+                  name: created_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expires_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: email_change_tokens
+            constraintName: fk_email_change_tokens_user
+            referencedColumnNames: id
+            referencedTableName: users
+            onDelete: CASCADE
+      rollback:
+        - dropTable:
+            tableName: email_change_tokens
+            cascadeConstraints: true

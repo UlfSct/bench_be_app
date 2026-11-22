@@ -5,6 +5,6 @@ import ru.bench.app.exception.ApiException;
 
 public class LocaleNotFoundException extends ApiException {
     public LocaleNotFoundException() {
-        super("INVALID_LOCALE", "error.locale.invalid", HttpStatus.BAD_REQUEST);
+        super("LOCALE_NOT_FOUND", "error.locale.notfound", HttpStatus.BAD_REQUEST);
     }
 }

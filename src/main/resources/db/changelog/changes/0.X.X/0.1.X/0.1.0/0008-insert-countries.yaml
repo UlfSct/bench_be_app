@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0.1.0-0008-insert-countries
+      author: n3kit
+      changes:
+        - insert:
+            tableName: countries
+            columns:
+              - column:
+                  name: code
+                  value: "RU"
+              - column:
+                  name: name
+                  value: "Россия"
+      rollback:
+        - delete:
+            tableName: countries
+            where: code IN ('RU')

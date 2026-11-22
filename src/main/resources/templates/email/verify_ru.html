@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<body>
+<p>Здравствуйте, <span th:text="${username}">username</span>!</p>
+<p>Подтвердите ваш email, перейдя по ссылке:</p>
+<p><a th:href="${link}" th:text="${link}">link</a></p>
+<p>Ссылка действительна 1 час.</p>
+</body>
+</html>
